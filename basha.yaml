@@ -1,21 +1,21 @@
 ---
-- name: intalling weblayer
-  hosts: web
+- name: installing weblayer
+  hosts: preprod-weblayer
   user: root
   become: yes 
 
   tasks:
   - name: install apache
     yum:
-    name: httpd
-    state: present
+      name: httpd
+      state: present
   - name: install unzip
     yum:
       name: unzip
       state: present
   - name: start apache
     service:
-     name: httpd
-     state: started
+       name: httpd
+       state: started
       
       
