@@ -1,24 +1,21 @@
 ---
-- name: deployment of package in remote server
+- name: intalling weblayer
   hosts: web
+  user: root
   become: yes 
 
   tasks:
-  - name: stop the apache
-    service:
+  - name: install apache
+    yum:
     name: httpd
-    state: stoped
-  - name: send the zip to remote server
-    copy:
-      src: weblayer-$build.zip
-      dest: /tmp/
-  - name: unzip the file in remote server
-    unarchive:
-      src: /tmp/weblayer-$build.zip
-      dest: /tmp/
-      remote_src: yes
-   - name: start the apache
-     service:
-       name:
-       start: started
+    state: present
+  - name: install unzip
+    yum:
+      name: unzip
+      state: present
+  - name: start apache
+    service:
+     name: httpd
+     state: started
+      
       
